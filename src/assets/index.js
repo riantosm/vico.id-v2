@@ -13,6 +13,9 @@ import IconInformation from './img/information.png';
 // icon components
 import location from './img/location.png';
 import down from './img/down.png';
+import kasus_posi from './img/kasus_posi.png';
+import kasus_meni from './img/kasus_meni.png';
+import kasus_semb from './img/kasus_semb.png';
 
 export {
   BgScreen,
@@ -23,4 +26,7 @@ export {
   IconInformation,
   location,
   down,
+  kasus_posi,
+  kasus_meni,
+  kasus_semb,
 };

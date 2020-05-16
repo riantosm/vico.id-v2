@@ -14,7 +14,7 @@ import {
 import {colors as c, fonts as f} from '../../../styles';
 import {BgScreen} from '../../../assets';
 import {Header} from '../../../components/global';
-import {CountryPicker} from '../../../components/pages';
+import {CountryPicker,CaseTotal} from '../../../components/pages';
 
 const {width, height} = Dimensions.get('window');
 
@@ -51,6 +51,11 @@ const Case = ({navigation}) => {
           <Header />
           <View style={s.space(width / 7)} />
           <CountryPicker onPress={status => setCountry(`${status}`)} />
+          
+          <CaseTotal
+            caseDummy={countrySelected}
+            goDetail={() => navigation.navigate('Dummy', country)}
+          />
         </ImageBackground>
       </ScrollView>
     </>
