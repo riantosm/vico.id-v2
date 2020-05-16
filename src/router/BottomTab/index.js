@@ -8,17 +8,26 @@ import {fonts as f, colors as c} from '../../styles';
 const Tab = createMaterialBottomTabNavigator();
 
 const BottomTab = () => (
-  <Tab.Navigator shifting={true} initialRouteName="Case" activeColor="#fff">
+  <Tab.Navigator
+    shifting={true}
+    initialRouteName="Case"
+    activeColor={'gray'}
+    inactiveColor={'#bfbfbf'}
+    barStyle={{borderTopWidth: 1, borderColor: '#e6e6e6'}}>
     <Tab.Screen
       name="Case"
       component={Case}
       options={{
-        tabBarLabel: <Text style={s.font}>Kasus</Text>,
-        tabBarColor: '#268aed',
+        tabBarLabel: <Text style={[s.font, {color: '#268aed'}]}>Kasus</Text>,
+        tabBarColor: '#fff',
         tabBarIcon: ({color}) => (
           <Image
             source={IconCase}
-            style={{width: 20, height: 20, tintColor: color}}
+            style={{
+              width: 20,
+              height: 20,
+              tintColor: color === 'gray' ? '#268aed' : color,
+            }}
           />
         ),
       }}
@@ -27,12 +36,16 @@ const BottomTab = () => (
       name="Information"
       component={Information}
       options={{
-        tabBarLabel: <Text style={s.font}>Informasi</Text>,
-        tabBarColor: c.orange,
+        tabBarLabel: <Text style={[s.font, {color: c.orange}]}>Informasi</Text>,
+        tabBarColor: '#fff',
         tabBarIcon: ({color}) => (
           <Image
             source={IconInformation}
-            style={{width: 20, height: 20, tintColor: color}}
+            style={{
+              width: 20,
+              height: 20,
+              tintColor: color === 'gray' ? c.orange : color,
+            }}
           />
         ),
       }}
@@ -41,12 +54,16 @@ const BottomTab = () => (
       name="Help"
       component={Help}
       options={{
-        tabBarLabel: <Text style={s.font}>Bantuan</Text>,
-        tabBarColor: c.green,
+        tabBarLabel: <Text style={[s.font, {color: c.green}]}>Bantuan</Text>,
+        tabBarColor: '#fff',
         tabBarIcon: ({color}) => (
           <Image
             source={IconHelp}
-            style={{width: 20, height: 20, tintColor: color}}
+            style={{
+              width: 20,
+              height: 20,
+              tintColor: color === 'gray' ? c.green : color,
+            }}
           />
         ),
       }}

@@ -4,6 +4,7 @@ import BgScreen from './img/bg.png';
 // image
 import virus_home from './img/virus_home.png';
 import drcorona from './img/Drcorona.png';
+import maps from './img/maps.png';
 
 // icon menu
 import IconHelp from './img/help.png';
@@ -21,6 +22,7 @@ export {
   BgScreen,
   virus_home,
   drcorona,
+  maps,
   IconHelp,
   IconCase,
   IconInformation,
