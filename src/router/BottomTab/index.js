@@ -1,33 +1,20 @@
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
-// import {createStackNavigator} from '@react-navigation/stack';
 import * as React from 'react';
-import {Image} from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
-
-// import DetailsScreen from './DetailsScreen';
-// import ExploreScreen from './ExploreScreen';
-// import HomeScreen from './HomeScreen';
-// import ProfileScreen from './ProfileScreen';
-import {Case, Information, Help,Splash} from '../../screens';
-import {IconCase, IconInformation, IconHelp} from '../../assets';
-
-// const CaseStack = createStackNavigator();
-// const DetailsStack = createStackNavigator();
+import {Image, Text, StyleSheet} from 'react-native';
+import {IconCase, IconHelp, IconInformation} from '../../assets';
+import {Case, Help, Information} from '../../screens';
+import {fonts as f, colors as c} from '../../styles';
 
 const Tab = createMaterialBottomTabNavigator();
 
 const BottomTab = () => (
-  <Tab.Navigator
-    shifting={true}
-    initialRouteName="Case"
-    activeColor="#fff"
-    style={{backgroundColor: 'tomato'}}>
+  <Tab.Navigator shifting={true} initialRouteName="Case" activeColor="#fff">
     <Tab.Screen
       name="Case"
       component={Case}
       options={{
-        tabBarLabel: 'Kasus',
-        tabBarColor: '#aaafd5',
+        tabBarLabel: <Text style={s.font}>Kasus</Text>,
+        tabBarColor: '#268aed',
         tabBarIcon: ({color}) => (
           <Image
             source={IconCase}
@@ -40,8 +27,8 @@ const BottomTab = () => (
       name="Information"
       component={Information}
       options={{
-        tabBarLabel: 'Informasi',
-        tabBarColor: '#fcc8b5',
+        tabBarLabel: <Text style={s.font}>Informasi</Text>,
+        tabBarColor: c.orange,
         tabBarIcon: ({color}) => (
           <Image
             source={IconInformation}
@@ -54,8 +41,8 @@ const BottomTab = () => (
       name="Help"
       component={Help}
       options={{
-        tabBarLabel: 'Bantuan',
-        tabBarColor: '#98e69c',
+        tabBarLabel: <Text style={s.font}>Bantuan</Text>,
+        tabBarColor: c.green,
         tabBarIcon: ({color}) => (
           <Image
             source={IconHelp}
@@ -67,54 +54,10 @@ const BottomTab = () => (
   </Tab.Navigator>
 );
 
-export default BottomTab;
+const s = StyleSheet.create({
+  font: {
+    fontFamily: f.GothaProBol,
+  },
+});
 
-// const CaseStackScreen = ({navigation}) => (
-//   <CaseStack.Navigator
-//     screenOptions={{
-//       headerStyle: {
-//         backgroundColor: '#009387',
-//       },
-//       headerTintColor: '#fff',
-//       headerTitleStyle: {
-//         fontWeight: 'bold',
-//       },
-//     }}>
-//     <CaseStack.Screen
-//       name="Case"
-//       component={Case}
-//       options={{
-//         title: 'Overview',
-//         headerShown: false,
-//         // headerLeft: () => (
-//         //   <Icon.Button
-//         //     name="ios-menu"
-//         //     size={25}
-//         //     backgroundColor="#009387"
-//         //     onPress={() => {
-//         //       navigation.openDrawer();
-//         //     }}
-//         //   />
-//         // ),
-//       }}
-//     />
-//     <CaseStack.Screen
-//       name="Splash"
-//       component={Splash}
-//       options={{
-//         title: 'Overview',
-        
-//         // headerLeft: () => (
-//         //   <Icon.Button
-//         //     name="ios-menu"
-//         //     size={25}
-//         //     backgroundColor="#009387"
-//         //     onPress={() => {
-//         //       navigation.openDrawer();
-//         //     }}
-//         //   />
-//         // ),
-//       }}
-//     />
-//   </CaseStack.Navigator>
-// );
+export default BottomTab;
