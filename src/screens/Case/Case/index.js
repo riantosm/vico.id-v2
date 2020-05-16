@@ -14,10 +14,31 @@ import {
 import {colors as c, fonts as f} from '../../../styles';
 import {BgScreen} from '../../../assets';
 import {Header} from '../../../components/global';
+import {CountryPicker} from '../../../components/pages';
 
 const {width, height} = Dimensions.get('window');
 
+const caseDummyIndonesia = [
+  {id: 1, title: 'Kasus positif', total: 99999},
+  {id: 2, title: 'Kasus sembuh', total: 99999},
+  {id: 3, title: 'Kasus meninggal', total: 999999},
+];
+
+const caseDummyDunia = [
+  {id: 1, title: 'Kasus positif', total: 523491},
+  {id: 2, title: 'Kasus sembuh', total: 2352321},
+  {id: 3, title: 'Kasus meninggal', total: 423123},
+];
+
 const Case = ({navigation}) => {
+  const [country, setCountry] = useState('Indonesia');
+  const [countrySelected, setCountrySelected] = useState(caseDummyIndonesia);
+  useEffect(() => {
+    country === 'Indonesia'
+      ? setCountrySelected(caseDummyIndonesia)
+      : setCountrySelected(caseDummyDunia);
+  });
+
   return (
     <>
       <StatusBar
@@ -29,7 +50,7 @@ const Case = ({navigation}) => {
         <ImageBackground source={BgScreen} style={{}}>
           <Header />
           <View style={s.space(width / 7)} />
-          <Text>a</Text>
+          <CountryPicker onPress={status => setCountry(`${status}`)} />
         </ImageBackground>
       </ScrollView>
     </>
