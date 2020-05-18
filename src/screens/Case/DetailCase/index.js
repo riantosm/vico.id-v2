@@ -1,10 +1,10 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 
-const Maps = ({route}) => {
+const DetailCase = ({route}) => {
   return (
     <View style={styles.container}>
-      <Text>Maps Screen</Text>
+      <Text>DetailCase Screen</Text>
       <Text>Data yang dikirim: {route.params}</Text>
     </View>
   );
@@ -18,4 +18,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Maps;
+export default DetailCase;

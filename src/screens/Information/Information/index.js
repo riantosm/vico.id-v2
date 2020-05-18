@@ -1,20 +1,41 @@
 import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {
+  Dimensions,
+  ImageBackground,
+  ScrollView,
+  StatusBar,
+  View,
+} from 'react-native';
+import {BgScreen} from '../../../assets';
+import {Header} from '../../../components';
+import {colors as c, fonts as f} from '../../../styles';
+
+const {width, height} = Dimensions.get('window');
 
 const Information = ({navigation}) => {
   return (
-    <View style={styles.container}>
-      <Text>Information Screen</Text>
-    </View>
+    <>
+      <StatusBar
+        barStyle="light-content"
+        backgroundColor={'rgba(0,0,0,0.4)'}
+        translucent={true}
+      />
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <ImageBackground source={BgScreen} style={{}}>
+          <Header status="information" />
+          <View style={s.space(width / 7)} />
+        </ImageBackground>
+      </ScrollView>
+    </>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+const s = {
+  space: value => {
+    return {
+      marginBottom: value,
+    };
   },
-});
+};
 
 export default Information;

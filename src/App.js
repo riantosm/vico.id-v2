@@ -2,7 +2,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import React, {useEffect, useState} from 'react';
 import {BottomTab} from './router';
-import {Maps, Splash} from './screens';
+import {Maps, Splash, DetailCase} from './screens';
 
 const Stack = createStackNavigator();
 
@@ -12,7 +12,7 @@ const App = () => {
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
-    }, 2000);
+    }, 4000);
   });
 
   return isLoading ? <Splash /> : <Root />;
@@ -29,6 +29,7 @@ const Root = () => {
         />
         {/* case{ */}
         <Stack.Screen name="Maps" component={Maps} />
+        <Stack.Screen name="DetailCase" component={DetailCase} />
         {/* }case */}
       </Stack.Navigator>
     </NavigationContainer>

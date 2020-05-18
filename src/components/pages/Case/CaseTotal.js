@@ -111,7 +111,7 @@ const s = {
   card: {
     backgroundColor: 'white',
     marginTop: 10,
-    paddingHorizontal: 30,
+    paddingHorizontal: 25,
     paddingVertical: 20,
     borderRadius: 25,
     justifyContent: 'space-between',
@@ -119,7 +119,7 @@ const s = {
     elevation: 8,
     flexDirection: 'row',
   },
-  icon: {width: 30, height: 30, marginBottom: 10, alignSelf: 'center'},
+  icon: {width: 35, height: 35, marginBottom: 10, alignSelf: 'center'},
   text: {
     title: {
       maxWidth: 190,
@@ -142,7 +142,7 @@ const s = {
     kasus_title: {
       textAlign: 'center',
       fontFamily: f.GothaProBol,
-      fontSize: 18,
+      fontSize: 20,
     },
     kasus_desc: {
       textAlign: 'center',
