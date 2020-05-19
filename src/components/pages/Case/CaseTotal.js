@@ -1,7 +1,8 @@
 import React from 'react';
-import {View, Text, Image} from 'react-native';
+import {View, Text, Image, Dimensions} from 'react-native';
 import {colors as c, fonts as f} from '../../../styles';
 import {down, right, kasus_posi, kasus_semb, kasus_meni} from '../../../assets';
+import {BoxShadow} from 'react-native-shadow';
 import Icon from 'react-native-vector-icons/Entypo';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
@@ -39,7 +40,21 @@ const currencyFormat = num => {
   return num.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
 };
 
+const {width, height} = Dimensions.get('window');
+
 const CaseTotal = ({caseDummy, goDetail}) => {
+  const shadowOpt = {
+    width: width - 40,
+    height: 120,
+    color: '#ccc',
+    border: 20,
+    radius: 20,
+    opacity: 0.3,
+    x: 0,
+    y: 10,
+    // style: {bottom: 20},
+  };
+
   return (
     <View style={s.container}>
       <Text style={s.text.title}>
@@ -59,11 +74,13 @@ const CaseTotal = ({caseDummy, goDetail}) => {
           </View>
         </TouchableOpacity>
       </View>
-      <View style={s.card}>
-        <CaseComp status={'posi'} caseDummy={caseDummy} />
-        <CaseComp status={'semb'} caseDummy={caseDummy} />
-        <CaseComp status={'meni'} caseDummy={caseDummy} />
-      </View>
+      <BoxShadow setting={shadowOpt}>
+        <View style={s.card}>
+          <CaseComp status={'posi'} caseDummy={caseDummy} />
+          <CaseComp status={'semb'} caseDummy={caseDummy} />
+          <CaseComp status={'meni'} caseDummy={caseDummy} />
+        </View>
+      </BoxShadow>
     </View>
   );
 };
@@ -116,13 +133,12 @@ const s = {
     borderRadius: 25,
     justifyContent: 'space-between',
     alignItems: 'center',
-    elevation: 8,
+    // elevation: 8,
     flexDirection: 'row',
   },
   icon: {width: 35, height: 35, marginBottom: 10, alignSelf: 'center'},
   text: {
     title: {
-      maxWidth: 190,
       fontSize: 16,
       fontFamily: f.GoogleSans_Bold,
       color: c.black,

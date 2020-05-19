@@ -55,6 +55,7 @@ const Case = ({navigation}) => {
             goDetail={() => navigation.navigate('DetailCase', country)}
           />
           <Maps goView={() => navigation.navigate('Maps', country)} />
+          <View style={s.space(20)} />
         </ImageBackground>
       </ScrollView>
     </>

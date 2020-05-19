@@ -11,7 +11,7 @@ import {
   ImageBackground,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import {virus_home, drcorona} from '../../../assets';
+import {virus_home, drcorona, drcorona2} from '../../../assets';
 import {colors as c, fonts as f} from '../../../styles';
 import {Block} from '../';
 
@@ -34,6 +34,13 @@ const Header = ({status}) => {
           end={{x: 1, y: 1}}>
           <Block style={s.wrapperimage}>
             <Image style={s.doctor} source={drcorona} resizeMode="contain" />
+            {/* {status === 'case' ? (
+              <Image style={s.doctor} source={drcorona} resizeMode="contain" />
+            ) : status === 'information' ? (
+              <Image style={s.doctor} source={drcorona} resizeMode="contain" />
+            ) : (
+              <Image style={s.doctor} source={drcorona} resizeMode="contain" />
+            )} */}
           </Block>
         </LinearGradient>
       </Block>
@@ -45,7 +52,7 @@ const Header = ({status}) => {
           ) : status === 'information' ? (
             <Text style={s.header_title}>Informasi mengenai virus corona.</Text>
           ) : (
-            <Text style={s.header_title}>Silakan bantu.</Text>
+            <Text style={s.header_title}>Pusat bantuan.</Text>
           )}
           <View style={s.space(7)} />
           <Text style={s.header_desc}>#dirumahsaja</Text>
@@ -80,6 +87,13 @@ const s = StyleSheet.create({
     right: 20,
     width: 194,
     height: 373,
+  },
+  doctor2: {
+    position: 'absolute',
+    top: 80,
+    right: 0,
+    width: 244,
+    height: 423,
   },
   container: {
     position: 'relative',

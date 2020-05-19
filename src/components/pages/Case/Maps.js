@@ -1,12 +1,27 @@
 import React from 'react';
-import {View, Text, Image, TouchableOpacity} from 'react-native';
+import {View, Text, Image, TouchableOpacity,Dimensions} from 'react-native';
+import {BoxShadow} from 'react-native-shadow';
 import {colors as c, fonts as f} from '../../../styles';
 import {maps} from '../../../assets';
 
+const {width, height} = Dimensions.get('window');
+
 const Maps = ({goView}) => {
+  const shadowOpt = {
+    width: width - 40,
+    height: 150,
+    color: '#ccc',
+    border: 20,
+    radius: 20,
+    opacity: 0.3,
+    x: 0,
+    y: 10,
+    // style: {marginBottom: 20},
+  };
   return (
     <View style={s.container}>
       <Text style={s.text.title}>Peta persebaran</Text>
+      <BoxShadow setting={shadowOpt}>
       <View style={s.card}>
         <Image source={maps} style={{width: '100%', resizeMode: 'center'}} />
         <TouchableOpacity
@@ -29,7 +44,7 @@ const Maps = ({goView}) => {
             </Text>
           </View>
         </TouchableOpacity>
-      </View>
+      </View></BoxShadow>
     </View>
   );
 };
@@ -48,7 +63,7 @@ const s = {
     borderRadius: 25,
     justifyContent: 'space-between',
     alignItems: 'center',
-    elevation: 8,
+    // elevation: 8,
     flexDirection: 'row',
   },
   text: {
