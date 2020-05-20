@@ -1,3 +1,6 @@
+// data
+import Data from './data';
+
 // bg
 import BgScreen from './img/bg.png';
 import bg_loading from './img/bg_loading.png';
@@ -29,6 +32,7 @@ import help_chat from './img/help_chat.png';
 import help_plus from './img/help_plus.png';
 
 export {
+  Data,
   BgScreen,
   bg_loading,
   virus_home,

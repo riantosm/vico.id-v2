@@ -1,19 +1,14 @@
-import React, {Component, useState, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Dimensions,
-  Image,
-  StatusBar,
-  Text,
-  View,
-  Alert,
-  TouchableOpacity,
-  StyleSheet,
   ImageBackground,
   ScrollView,
+  StatusBar,
+  View,
 } from 'react-native';
-import {colors as c, fonts as f} from '../../../styles';
 import {BgScreen} from '../../../assets';
-import {CountryPicker, CaseTotal, Maps, Header} from '../../../components';
+import {CaseTotal, CountryPicker, Header, Maps} from '../../../components';
+import {colors as c, fonts as f} from '../../../styles';
 
 const {width, height} = Dimensions.get('window');
 
@@ -51,6 +46,7 @@ const Case = ({navigation}) => {
           <View style={s.space(width / 7)} />
           <CountryPicker onPress={status => setCountry(`${status}`)} />
           <CaseTotal
+            country={country}
             caseDummy={countrySelected}
             goDetail={() => navigation.navigate('DetailCase', country)}
           />

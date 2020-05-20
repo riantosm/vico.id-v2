@@ -1,14 +1,25 @@
-import React from 'react';
-import {Text, TouchableOpacity, View, Dimensions, Image} from 'react-native';
-import {BoxShadow} from 'react-native-shadow';
-import {colors as c, fonts as f} from '../../../styles';
-import Icon from 'react-native-vector-icons/Entypo';
+import React, {useState} from 'react';
 import {
-  information_virus,
+  Dimensions,
+  Image,
+  Linking,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import {BoxShadow} from 'react-native-shadow';
+import Icon from 'react-native-vector-icons/Entypo';
+import {ModalComp} from '..';
+import {
+  help_chat,
+  help_phone,
+  help_plus,
   information_drug,
   information_earth,
-  information_hand,help_phone, help_chat, help_plus
+  information_hand,
+  information_virus,
 } from '../../../assets';
+import {colors as c, fonts as f} from '../../../styles';
 
 const {width, height} = Dimensions.get('window');
 
@@ -39,10 +50,29 @@ const Card = ({text, hotline}) => {
     y: 10,
     // style: {bottom: 20},
   };
+
+  const [isModalVisible, setModalVisible] = useState(false);
+
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
+  const toggleModalBack = () => {
+    setModalVisible(false);
+  };
+
+  const clicked = () => {
+    text === 'Hotline'
+      ? Linking.openURL(
+          'whatsapp://send?text=' + '' + '&phone=62' + '81212123119',
+        )
+      : toggleModal();
+  };
+
   return (
     <>
       <BoxShadow setting={shadowOpt}>
-        <TouchableOpacity>
+        {/* <TouchableOpacity onPress={toggleModal}> */}
+        <TouchableOpacity onPress={clicked}>
           <View style={s.card}>
             <Image source={img} style={s.iconImg} resizeMode="contain" />
             <Text style={[s.text.title, {flex: 1}]}>{text}</Text>
@@ -61,6 +91,13 @@ const Card = ({text, hotline}) => {
           </View>
         </TouchableOpacity>
       </BoxShadow>
+      <ModalComp
+        show={text}
+        isModalVisible={isModalVisible}
+        setModalVisible={() => setModalVisible(false)}
+        toggleModal={() => toggleModal()}
+        toggleModalBack={() => toggleModalBack()}
+      />
       <View style={s.space(25)} />
     </>
   );
@@ -98,10 +135,26 @@ const s = {
   text: {
     bubble: {color: 'white', fontFamily: f.GoogleSans_Bold},
     title: {
-      maxWidth: 190,
       fontSize: 16,
       fontFamily: f.GoogleSans_Bold,
       color: c.black,
+    },
+    desc: {
+      fontSize: 14,
+      fontFamily: f.GoogleSans_Reg,
+      color: c.black,
+      textAlign: 'justify',
+    },
+    title_modal: {
+      fontSize: 20,
+      fontFamily: f.GoogleSans_Bold,
+      color: c.white,
+    },
+    desc_modal: {
+      fontSize: 14,
+      fontFamily: f.GoogleSans_Bold,
+      color: c.gray,
+      textAlign: 'justify',
     },
     cOrange: {color: c.orange},
     cGreen: {color: c.green},

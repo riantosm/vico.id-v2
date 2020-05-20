@@ -1,10 +1,10 @@
 import React from 'react';
-import {View, Text, Image, Dimensions} from 'react-native';
-import {colors as c, fonts as f} from '../../../styles';
-import {down, right, kasus_posi, kasus_semb, kasus_meni} from '../../../assets';
+import {Dimensions, Image, Text, View} from 'react-native';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 import {BoxShadow} from 'react-native-shadow';
 import Icon from 'react-native-vector-icons/Entypo';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import {kasus_meni, kasus_posi, kasus_semb} from '../../../assets';
+import {colors as c, fonts as f} from '../../../styles';
 
 var day = new Date().getDay(); //To get the Current Date
 var date = new Date().getDate(); //To get the Current Date
@@ -42,7 +42,7 @@ const currencyFormat = num => {
 
 const {width, height} = Dimensions.get('window');
 
-const CaseTotal = ({caseDummy, goDetail}) => {
+const CaseTotal = ({caseDummy, goDetail, country}) => {
   const shadowOpt = {
     width: width - 40,
     height: 120,
@@ -58,7 +58,7 @@ const CaseTotal = ({caseDummy, goDetail}) => {
   return (
     <View style={s.container}>
       <Text style={s.text.title}>
-        Total Kasus di <Text style={s.text.cBlueDark}>Indonesia</Text>
+        Total Kasus di <Text style={s.text.cBlue}>{country}</Text>
       </Text>
       <View style={s.row}>
         <Text style={s.text.desc}>
@@ -170,6 +170,7 @@ const s = {
     cRed: {color: c.red},
     cGrayText: {color: c.grayText},
     cBlueDark: {color: c.blueDark},
+    cBlue: {color: c.blue},
   },
   space: value => {
     return {
