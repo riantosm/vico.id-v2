@@ -1,38 +1,24 @@
-import React, {useEffect, useState} from 'react';
+import React, {Component, useEffect, useState} from 'react';
 import {
   Dimensions,
   ImageBackground,
   ScrollView,
   StatusBar,
   View,
+  Text,
 } from 'react-native';
 import {BgScreen} from '../../../assets';
 import {CaseTotal, CountryPicker, Header, Maps} from '../../../components';
 import {colors as c, fonts as f} from '../../../styles';
+import firebase from 'firebase';
 
 const {width, height} = Dimensions.get('window');
 
-const caseDummyIndonesia = [
-  {id: 1, title: 'Kasus positif', total: 99999},
-  {id: 2, title: 'Kasus sembuh', total: 99999},
-  {id: 3, title: 'Kasus meninggal', total: 999999},
-];
+const caseDummyIndonesia = [111, 222, 333];
 
-const caseDummyDunia = [
-  {id: 1, title: 'Kasus positif', total: 523491},
-  {id: 2, title: 'Kasus sembuh', total: 2352321},
-  {id: 3, title: 'Kasus meninggal', total: 423123},
-];
+const caseDummyDunia = [111, 222, 333];
 
 const Case = ({navigation}) => {
-  const [country, setCountry] = useState('Indonesia');
-  const [countrySelected, setCountrySelected] = useState(caseDummyIndonesia);
-  useEffect(() => {
-    country === 'Indonesia'
-      ? setCountrySelected(caseDummyIndonesia)
-      : setCountrySelected(caseDummyDunia);
-  });
-
   return (
     <>
       <StatusBar
@@ -44,19 +30,110 @@ const Case = ({navigation}) => {
         <ImageBackground source={BgScreen} style={{}}>
           <Header status="case" />
           <View style={s.space(width / 7)} />
-          <CountryPicker onPress={status => setCountry(`${status}`)} />
-          <CaseTotal
-            country={country}
-            caseDummy={countrySelected}
-            goDetail={() => navigation.navigate('DetailCase', country)}
-          />
-          <Maps goView={() => navigation.navigate('Maps', country)} />
+          <ClassCase navigation={navigation} />
           <View style={s.space(20)} />
         </ImageBackground>
       </ScrollView>
     </>
   );
 };
+
+class ClassCase extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      country: 'Indonesia',
+      countrySelected: [0, 0, 0],
+      indonesiaTotal: [],
+      duniaTotal: [],
+    };
+  }
+
+  componentDidMount=async()=> {
+    await this.getTotalIndonesiaFirebase();
+    await this.getTotalDuniaFirebase();
+  }
+
+  setCountry = async status => {
+    await this.setState({
+      country: status,
+    });
+    this.setCountrySelected();
+  };
+
+  setCountrySelected = () => {
+    this.state.country === 'Indonesia'
+      ? this.setState({
+          countrySelected: this.state.indonesiaTotal,
+        })
+      : this.setState({
+          countrySelected: caseDummyDunia,
+        });
+  };
+
+  getTotalIndonesiaFirebase = async () => {
+    await firebase
+      .database()
+      .ref('indonesia/data_total')
+      .on('child_added', val => {
+        let data = val.val();
+        data.Meni = val.key;
+        this.setState(prevState => {
+          return {
+            indonesiaTotal: [...prevState.indonesiaTotal, data],
+          };
+        });
+        this.setState({
+          indonesiaTotalReady: true,
+        });
+      });
+  };
+
+  getTotalDuniaFirebase() {
+    firebase
+      .database()
+      .ref('dunia/data_total')
+      .on('child_added', val => {
+        let data = val.val();
+        data.Meni = val.key;
+        this.setState(prevState => {
+          return {
+            duniaTotal: [...prevState.duniaTotal, data],
+          };
+        });
+        this.setState({
+          duniaTotalReady: true,
+        });
+      });
+  }
+
+  render() {
+    return (
+      <>
+        <CountryPicker onPress={status => this.setCountry(`${status}`)} />
+        <CaseTotal
+          country={this.state.country}
+          indonesiaTotalReady={this.state.indonesiaTotalReady}
+          caseDummy={
+            this.state.indonesiaTotalReady && this.state.duniaTotalReady
+              ? this.state.country === 'Indonesia'
+                ? this.state.indonesiaTotal
+                : this.state.duniaTotal
+              : [null, null, null]
+          }
+          goDetail={() =>
+            this.props.navigation.navigate('DetailCase', this.state.country)
+          }
+        />
+        <Maps
+          goView={() =>
+            this.props.navigation.navigate('Maps', this.state.country)
+          }
+        />
+      </>
+    );
+  }
+}
 
 const s = {
   container: {

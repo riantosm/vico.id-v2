@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   Dimensions,
   ImageBackground,
@@ -9,12 +9,20 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {BgScreen} from '../../../assets';
-import {Card, Header} from '../../../components';
+import {Card, Header, ModalComp} from '../../../components';
 import {colors as c, fonts as f} from '../../../styles';
 
 const {width, height} = Dimensions.get('window');
 
 const Help = ({navigation}) => {
+  const [isModalVisible, setModalVisible] = useState(false);
+
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
+  const toggleModalBack = () => {
+    setModalVisible(false);
+  };
   return (
     <>
       <StatusBar
@@ -33,7 +41,7 @@ const Help = ({navigation}) => {
               <Text style={s.text.desc}>
                 Jika anda mengalami gejala-gejala{' '}
               </Text>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => toggleModal()}>
                 <Text style={[s.text.desc, {color: c.green}]}>
                   seperti ini.
                 </Text>
@@ -47,6 +55,13 @@ const Help = ({navigation}) => {
           </View>
         </ImageBackground>
       </ScrollView>
+      <ModalComp
+        show={'Gejala'}
+        isModalVisible={isModalVisible}
+        setModalVisible={() => setModalVisible(false)}
+        toggleModal={() => toggleModal()}
+        toggleModalBack={() => toggleModalBack()}
+      />
     </>
   );
 };

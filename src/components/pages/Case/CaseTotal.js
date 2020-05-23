@@ -1,6 +1,12 @@
 import React from 'react';
-import {Dimensions, Image, Text, View} from 'react-native';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import {
+  Dimensions,
+  Image,
+  Text,
+  View,
+  TouchableOpacity,
+  ActivityIndicator,
+} from 'react-native';
 import {BoxShadow} from 'react-native-shadow';
 import Icon from 'react-native-vector-icons/Entypo';
 import {kasus_meni, kasus_posi, kasus_semb} from '../../../assets';
@@ -42,7 +48,7 @@ const currencyFormat = num => {
 
 const {width, height} = Dimensions.get('window');
 
-const CaseTotal = ({caseDummy, goDetail, country}) => {
+const CaseTotal = ({caseDummy, goDetail, country, indonesiaTotalReady}) => {
   const shadowOpt = {
     width: width - 40,
     height: 120,
@@ -62,23 +68,29 @@ const CaseTotal = ({caseDummy, goDetail, country}) => {
       </Text>
       <View style={s.row}>
         <Text style={s.text.desc}>
-          {dayArray[day]}, {date} {monthArray[month]} {year}
+          {indonesiaTotalReady ? (
+            <>
+              {dayArray[day]}, {date} {monthArray[month]} {year}
+            </>
+          ) : (
+            <>Memuat ...</>
+          )}
         </Text>
-        <TouchableOpacity onPress={() => goDetail()}>
-          <View
-            style={{
-              flexDirection: 'row',
-            }}>
-            <Text style={s.text.detail}>Detail</Text>
-            <Icon name={'chevron-right'} size={14} color={c.blue} />
-          </View>
+        <TouchableOpacity
+          onPress={() => goDetail()}
+          style={{
+            flexDirection: 'row',
+            paddingBottom: 5,
+          }}>
+          <Text style={s.text.detail}>Detail</Text>
+          <Icon name={'chevron-right'} size={14} color={c.blue} />
         </TouchableOpacity>
       </View>
       <BoxShadow setting={shadowOpt}>
         <View style={s.card}>
-          <CaseComp status={'posi'} caseDummy={caseDummy} />
-          <CaseComp status={'semb'} caseDummy={caseDummy} />
-          <CaseComp status={'meni'} caseDummy={caseDummy} />
+          <CaseComp status={'posi'} caseDummy={caseDummy[1]} />
+          <CaseComp status={'semb'} caseDummy={caseDummy[2]} />
+          <CaseComp status={'meni'} caseDummy={caseDummy[0]} />
         </View>
       </BoxShadow>
     </View>
@@ -86,14 +98,12 @@ const CaseTotal = ({caseDummy, goDetail, country}) => {
 };
 
 const CaseComp = ({status, caseDummy}) => {
-  let arrayTotal = status === 'posi' ? 0 : status === 'semb' ? 1 : 2;
   let icon =
     status === 'posi'
       ? kasus_posi
       : status === 'semb'
       ? kasus_semb
       : kasus_meni;
-  let arrayTitle = status === 'posi' ? 0 : status === 'semb' ? 1 : 2;
   let color =
     status === 'posi'
       ? s.text.cOrange
@@ -103,11 +113,26 @@ const CaseComp = ({status, caseDummy}) => {
   return (
     <View>
       <Image source={icon} style={s.icon} />
-      <Text style={[s.text.kasus_title, color]}>
-        {currencyFormat(caseDummy[arrayTotal].total)}
-      </Text>
+      {caseDummy == null ? (
+        <ActivityIndicator
+          color={
+            status === 'posi' ? c.orange : status === 'semb' ? c.green : c.red
+          }
+        />
+      ) : (
+        <Text style={[s.text.kasus_title, color]}>
+          {currencyFormat(caseDummy)}
+        </Text>
+      )}
       <Text style={[s.text.kasus_desc, s.text.cGrayText]}>
-        {caseDummy[arrayTitle].title}
+        Kasus{' '}
+        {status === 'posi' ? (
+          <>Positif</>
+        ) : status === 'semb' ? (
+          <>Sembuh</>
+        ) : (
+          <>Meninggal</>
+        )}
       </Text>
     </View>
   );
@@ -128,10 +153,10 @@ const s = {
   card: {
     backgroundColor: 'white',
     marginTop: 10,
-    paddingHorizontal: 25,
+    // paddingHorizontal: 30,
     paddingVertical: 20,
     borderRadius: 25,
-    justifyContent: 'space-between',
+    justifyContent: 'space-evenly',
     alignItems: 'center',
     // elevation: 8,
     flexDirection: 'row',

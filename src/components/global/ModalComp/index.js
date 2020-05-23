@@ -43,7 +43,9 @@ const ModalComp = ({
           {(show === 'Mengenal' && <Data.Mengenal />) ||
             (show === 'Mencegah' && <Data.Mencegah />) ||
             (show === 'Mengobati' && <Data.Mengobati />) ||
-            (show === 'Mengantisipasi' && <Data.Mengantisipasi />)}
+            (show === 'Mengantisipasi' && <Data.Mengantisipasi />) ||
+            (show === 'Gejala' && <Data.Gejala />)
+            }
           <View style={s.space(40)} />
           <TouchableOpacity onPress={() => toggleModal()}>
             <Icon
