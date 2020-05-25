@@ -1,15 +1,14 @@
 import React from 'react';
 import {
-  Dimensions,
-  Image,
-  Text,
-  View,
-  TouchableOpacity,
   ActivityIndicator,
+  Dimensions,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 import {BoxShadow} from 'react-native-shadow';
 import Icon from 'react-native-vector-icons/Entypo';
-import {kasus_meni, kasus_posi, kasus_semb} from '../../../assets';
+import {CaseComp} from '../../';
 import {colors as c, fonts as f} from '../../../styles';
 
 var day = new Date().getDay(); //To get the Current Date
@@ -41,10 +40,6 @@ const dayArray = [
   'Jumat',
   'Sabtu',
 ];
-
-const currencyFormat = num => {
-  return num.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
-};
 
 const {width, height} = Dimensions.get('window');
 
@@ -104,47 +99,6 @@ const CaseTotal = ({caseDummy, goDetail, country, dataReady, detailReady}) => {
           <CaseComp status={'meni'} caseDummy={caseDummy[0]} />
         </View>
       </BoxShadow>
-    </View>
-  );
-};
-
-const CaseComp = ({status, caseDummy}) => {
-  let icon =
-    status === 'posi'
-      ? kasus_posi
-      : status === 'semb'
-      ? kasus_semb
-      : kasus_meni;
-  let color =
-    status === 'posi'
-      ? s.text.cOrange
-      : status === 'semb'
-      ? s.text.cGreen
-      : s.text.cRed;
-  return (
-    <View>
-      <Image source={icon} style={s.icon} />
-      {caseDummy == null ? (
-        <ActivityIndicator
-          color={
-            status === 'posi' ? c.orange : status === 'semb' ? c.green : c.red
-          }
-        />
-      ) : (
-        <Text style={[s.text.kasus_title, color]}>
-          {currencyFormat(caseDummy)}
-        </Text>
-      )}
-      <Text style={[s.text.kasus_desc, s.text.cGrayText]}>
-        Kasus{' '}
-        {status === 'posi' ? (
-          <>Positif</>
-        ) : status === 'semb' ? (
-          <>Sembuh</>
-        ) : (
-          <>Meninggal</>
-        )}
-      </Text>
     </View>
   );
 };
