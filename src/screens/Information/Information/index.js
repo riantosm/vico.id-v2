@@ -18,8 +18,8 @@ const Information = ({navigation}) => {
     <>
       <StatusBar
         barStyle="light-content"
-        backgroundColor={'rgba(0,0,0,0.4)'}
-        translucent={true}
+        backgroundColor={'rgba(0,0,0,0.7)'}
+        translucent={false}
       />
       <ScrollView showsVerticalScrollIndicator={false}>
         <ImageBackground source={BgScreen} style={{minHeight:height}}>

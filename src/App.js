@@ -46,14 +46,10 @@ const App = () => {
 const Root = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Root"
-          component={BottomTab}
-          options={{headerShown: false}}
-        />
+      <Stack.Navigator headerMode="none">
+        <Stack.Screen name="Root" component={BottomTab} />
         {/* case{ */}
-        <Stack.Screen name="Maps" component={Maps} />
+        <Stack.Screen name="Maps" component={Maps} data={'test'} />
         <Stack.Screen name="DetailCase" component={DetailCase} />
         {/* }case */}
       </Stack.Navigator>

@@ -1,11 +1,12 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 
-const Maps = ({route}) => {
+const Maps = ({route, navigation}) => {
+  console.log(navigation.data);
   return (
     <View style={styles.container}>
       <Text>Maps Screen</Text>
-      <Text>Data yang dikirim: {route.params}</Text>
+      <Text>Data yang dikirim: {navigation.params}</Text>
     </View>
   );
 };

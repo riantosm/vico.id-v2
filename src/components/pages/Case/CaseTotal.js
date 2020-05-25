@@ -48,7 +48,7 @@ const currencyFormat = num => {
 
 const {width, height} = Dimensions.get('window');
 
-const CaseTotal = ({caseDummy, goDetail, country, indonesiaTotalReady}) => {
+const CaseTotal = ({caseDummy, goDetail, country, dataReady, detailReady}) => {
   const shadowOpt = {
     width: width - 40,
     height: 120,
@@ -68,7 +68,7 @@ const CaseTotal = ({caseDummy, goDetail, country, indonesiaTotalReady}) => {
       </Text>
       <View style={s.row}>
         <Text style={s.text.desc}>
-          {indonesiaTotalReady ? (
+          {dataReady ? (
             <>
               {dayArray[day]}, {date} {monthArray[month]} {year}
             </>
@@ -76,15 +76,26 @@ const CaseTotal = ({caseDummy, goDetail, country, indonesiaTotalReady}) => {
             <>Memuat ...</>
           )}
         </Text>
-        <TouchableOpacity
-          onPress={() => goDetail()}
-          style={{
-            flexDirection: 'row',
-            paddingBottom: 5,
-          }}>
-          <Text style={s.text.detail}>Detail</Text>
-          <Icon name={'chevron-right'} size={14} color={c.blue} />
-        </TouchableOpacity>
+        {detailReady ? (
+          <TouchableOpacity
+            onPress={() => goDetail()}
+            style={{
+              flexDirection: 'row',
+              paddingBottom: 5,
+            }}>
+            <Text style={s.text.detail}>Detail</Text>
+            <Icon name={'chevron-right'} size={14} color={c.blue} />
+          </TouchableOpacity>
+        ) : (
+          <View
+            style={{
+              flexDirection: 'row',
+              paddingBottom: 5,
+            }}>
+            <Text style={s.text.detailLoading}>Detail</Text>
+            <ActivityIndicator size={10} color={c.grayText} />
+          </View>
+        )}
       </View>
       <BoxShadow setting={shadowOpt}>
         <View style={s.card}>
@@ -179,6 +190,13 @@ const s = {
       fontSize: 14,
       fontFamily: f.GoogleSans_Bold,
       color: c.blue,
+    },
+    detailLoading: {
+      maxWidth: 150,
+      fontSize: 14,
+      fontFamily: f.GoogleSans_Reg,
+      color: c.grayText,
+      marginRight: 5,
     },
     kasus_title: {
       textAlign: 'center',
