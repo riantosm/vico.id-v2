@@ -178,7 +178,11 @@ class ClassCase extends Component {
         />
         <Maps
           goView={() =>
-            this.props.navigation.navigate('Maps', this.state.country)
+            this.props.navigation.navigate('Maps', [
+              this.state.country,
+              this.state.indonesiaDataFire,
+              this.state.duniaDataFire,
+            ])
           }
         />
       </>

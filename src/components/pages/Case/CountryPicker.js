@@ -26,7 +26,7 @@ export default class CountryPicker extends Component {
       },
     ];
     return (
-      <View style={s.containerBig}>
+      <View style={styles.containerBig}>
         <CustomPicker
           placeholder={'Indonesia'}
           options={options}
@@ -34,7 +34,7 @@ export default class CountryPicker extends Component {
           fieldTemplate={this.renderField}
           optionTemplate={this.renderOption}
           headerTemplate={this.renderHeader}
-          modalStyle={s.modalStyle}
+          modalStyle={styles.modalStyle}
           footerTemplate={this.renderFooter}
           onValueChange={value => {
             this.props.onPress(value.label);
@@ -104,7 +104,7 @@ export default class CountryPicker extends Component {
           ) : (
             <View style={styles.iconLocation} />
           )}
-          <Text style={s.textItem}>{getLabel(item)}</Text>
+          <Text style={styles.textItem}>{getLabel(item)}</Text>
         </View>
       </View>
     );

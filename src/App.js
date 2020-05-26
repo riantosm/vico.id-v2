@@ -12,7 +12,7 @@ import {
   projectId,
   storageBucket,
 } from 'react-native-dotenv';
-import {BottomTab} from './router';
+import {BottomTab, BottomTabMaps} from './router';
 import {DetailCase, Maps, Splash} from './screens';
 
 // Your web app's Firebase configuration
@@ -49,7 +49,7 @@ const Root = () => {
       <Stack.Navigator headerMode="none">
         <Stack.Screen name="Root" component={BottomTab} />
         {/* case{ */}
-        <Stack.Screen name="Maps" component={Maps} />
+        <Stack.Screen name="Maps" component={BottomTabMaps} />
         <Stack.Screen name="DetailCase" component={DetailCase} />
         {/* }case */}
       </Stack.Navigator>

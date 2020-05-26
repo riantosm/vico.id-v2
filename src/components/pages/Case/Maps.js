@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, Image, TouchableOpacity,Dimensions} from 'react-native';
+import {View, Text, Image, TouchableOpacity, Dimensions} from 'react-native';
 import {BoxShadow} from 'react-native-shadow';
 import {colors as c, fonts as f} from '../../../styles';
 import {maps} from '../../../assets';
@@ -22,29 +22,17 @@ const Maps = ({goView}) => {
     <View style={s.container}>
       <Text style={s.text.title}>Peta persebaran</Text>
       <BoxShadow setting={shadowOpt}>
-      <View style={s.card}>
-        <Image source={maps} style={{width: '100%', resizeMode: 'center'}} />
-        <TouchableOpacity
-          onPress={() => goView()}
-          style={{
-            position: 'absolute',
-            right: 0,
-            left: 0,
-          }}>
-          <View
-            style={{
-              alignSelf: 'center',
-              backgroundColor: 'rgba(60,67,121,.8)',
-              paddingVertical: 15,
-              paddingHorizontal: 25,
-              borderRadius: 30,
-            }}>
-            <Text style={{fontFamily: f.GoogleSans_Bold, color: c.white}}>
-              Lihat
-            </Text>
-          </View>
-        </TouchableOpacity>
-      </View></BoxShadow>
+        <View style={s.card}>
+          <Image source={maps} style={{width: '100%', resizeMode: 'center'}} />
+          <TouchableOpacity onPress={() => goView()} style={s.containerBtn}>
+            <View style={s.btn}>
+              <Text style={{fontFamily: f.GoogleSans_Bold, color: c.white}}>
+                Lihat
+              </Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+      </BoxShadow>
     </View>
   );
 };
@@ -63,7 +51,6 @@ const s = {
     borderRadius: 25,
     justifyContent: 'space-between',
     alignItems: 'center',
-    // elevation: 8,
     flexDirection: 'row',
   },
   text: {
@@ -73,6 +60,18 @@ const s = {
       fontFamily: f.GoogleSans_Bold,
       color: c.black,
     },
+  },
+  containerBtn: {
+    position: 'absolute',
+    right: 0,
+    left: 0,
+  },
+  btn: {
+    alignSelf: 'center',
+    backgroundColor: 'rgba(60,67,121,.8)',
+    paddingVertical: 15,
+    paddingHorizontal: 25,
+    borderRadius: 30,
   },
 };
 
