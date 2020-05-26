@@ -71,7 +71,6 @@ const Card = ({text, hotline}) => {
   return (
     <>
       <BoxShadow setting={shadowOpt}>
-        {/* <TouchableOpacity onPress={toggleModal}> */}
         <TouchableOpacity onPress={clicked}>
           <View style={s.card}>
             <Image source={img} style={s.iconImg} resizeMode="contain" />
@@ -104,22 +103,12 @@ const Card = ({text, hotline}) => {
 };
 
 const s = {
-  container: {
-    flex: 1,
-    marginHorizontal: 20,
-    marginBottom: 30,
-  },
   card: {
     borderRadius: 20,
     padding: 20,
-    // elevation: 4,
     backgroundColor: '#fff',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  row: {
-    flexDirection: 'row',
     alignItems: 'center',
   },
   iconImg: {height: 40, width: 40, marginRight: 20},
@@ -145,22 +134,6 @@ const s = {
       color: c.black,
       textAlign: 'justify',
     },
-    title_modal: {
-      fontSize: 20,
-      fontFamily: f.GoogleSans_Bold,
-      color: c.white,
-    },
-    desc_modal: {
-      fontSize: 14,
-      fontFamily: f.GoogleSans_Bold,
-      color: c.gray,
-      textAlign: 'justify',
-    },
-    cOrange: {color: c.orange},
-    cGreen: {color: c.green},
-    cRed: {color: c.red},
-    cGrayText: {color: c.grayText},
-    cBlueDark: {color: c.blueDark},
   },
   space: value => {
     return {

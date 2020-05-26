@@ -1,8 +1,8 @@
 import React from 'react';
-import {Text, Image, View} from 'react-native';
+import {Image, Text} from 'react-native';
 import * as Animatable from 'react-native-animatable';
+import {virus_loading} from '../../../assets';
 import {colors as c, fonts as f} from '../../../styles';
-import {virus_loading, bg_loading} from '../../../assets';
 
 const zoomOut = {
   0: {

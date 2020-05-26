@@ -1,22 +1,17 @@
-import React, {Component, useEffect, useState} from 'react';
+import firebase from 'firebase';
+import React, {Component} from 'react';
 import {
   Dimensions,
   ImageBackground,
   ScrollView,
   StatusBar,
   View,
-  Text,
 } from 'react-native';
 import {BgScreen} from '../../../assets';
 import {CaseTotal, CountryPicker, Header, Maps} from '../../../components';
 import {colors as c, fonts as f} from '../../../styles';
-import firebase from 'firebase';
 
 const {width, height} = Dimensions.get('window');
-
-const caseDummyIndonesia = [111, 222, 333];
-
-const caseDummyDunia = [111, 222, 333];
 
 const Case = ({navigation}) => {
   return (
@@ -73,7 +68,7 @@ class ClassCase extends Component {
           countrySelected: this.state.indonesiaTotal,
         })
       : this.setState({
-          countrySelected: caseDummyDunia,
+          countrySelected: this.state.duniaTotal,
         });
   };
 

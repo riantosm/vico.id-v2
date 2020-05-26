@@ -65,8 +65,6 @@ const s = {
     cGreen: {color: c.green},
     cRed: {color: c.red},
     cGrayText: {color: c.grayText},
-    cBlueDark: {color: c.blueDark},
-    cBlue: {color: c.blue},
   },
   space: value => {
     return {

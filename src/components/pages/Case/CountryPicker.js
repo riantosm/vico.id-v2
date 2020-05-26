@@ -1,21 +1,9 @@
 // Library
 import React, {Component} from 'react';
-import {
-  Dimensions,
-  Image,
-  StatusBar,
-  Text,
-  View,
-  Alert,
-  TouchableOpacity,
-  StyleSheet,
-} from 'react-native';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {CustomPicker} from 'react-native-custom-picker';
+import {down, location} from '../../../assets';
 import {colors as c, fonts as f} from '../../../styles';
-import {location, down} from '../../../assets';
-
-// Styles
-// import styles from './CountryPickerStyle'
 
 let country = 'Indonesia';
 
@@ -38,8 +26,7 @@ export default class CountryPicker extends Component {
       },
     ];
     return (
-      <View
-        style={{flex: 1, flexDirection: 'column', justifyContent: 'center'}}>
+      <View style={s.containerBig}>
         <CustomPicker
           placeholder={'Indonesia'}
           options={options}
@@ -47,7 +34,7 @@ export default class CountryPicker extends Component {
           fieldTemplate={this.renderField}
           optionTemplate={this.renderOption}
           headerTemplate={this.renderHeader}
-          modalStyle={{backgroundColor: c.white, borderRadius: 15}}
+          modalStyle={s.modalStyle}
           footerTemplate={this.renderFooter}
           onValueChange={value => {
             this.props.onPress(value.label);
@@ -72,28 +59,15 @@ export default class CountryPicker extends Component {
 
   renderFooter(action) {
     return (
-      <TouchableOpacity
-        style={styles.headerFooterContainer}
-        // onPress={() => {
-        //   Alert.alert('Footer', "You've click the footer!", [
-        //     {
-        //       text: 'OK',
-        //     },
-        //     {
-        //       text: 'Close Dropdown',
-        //       onPress: action.close.bind(this),
-        //     },
-        //   ]);
-        // }}
-      >
-        {/* <Text>This is footer, click me!</Text> */}
+      <TouchableOpacity style={styles.headerFooterContainer}>
+        {/* <Text>This is footer</Text> */}
       </TouchableOpacity>
     );
   }
 
   // tombol nya
   renderField(settings) {
-    const {selectedItem, defaultText, getLabel, clear} = settings;
+    const {selectedItem, getLabel} = settings;
     return (
       <View style={styles.container}>
         <View>
@@ -130,15 +104,7 @@ export default class CountryPicker extends Component {
           ) : (
             <View style={styles.iconLocation} />
           )}
-          <Text
-            style={{
-              color: c.black,
-              alignSelf: 'flex-start',
-              fontFamily: f.GoogleSans_Bold,
-              fontSize: 20,
-            }}>
-            {getLabel(item)}
-          </Text>
+          <Text style={s.textItem}>{getLabel(item)}</Text>
         </View>
       </View>
     );
@@ -146,6 +112,7 @@ export default class CountryPicker extends Component {
 }
 
 const styles = StyleSheet.create({
+  containerBig: {flex: 1, flexDirection: 'column', justifyContent: 'center'},
   container: {
     marginTop: 10,
     borderColor: c.gray,
@@ -160,6 +127,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
   },
+  modalStyle: {backgroundColor: c.white, borderRadius: 15},
   iconLocation: {width: 20, height: 20, marginRight: 8},
   iconDown: {width: 15, height: 8},
   text: {
@@ -167,28 +135,19 @@ const styles = StyleSheet.create({
     fontFamily: f.GoogleSans_Bold,
     color: c.black,
   },
+  textItem: {
+    color: c.black,
+    alignSelf: 'flex-start',
+    fontFamily: f.GoogleSans_Bold,
+    fontSize: 20,
+  },
   headerFooterContainer: {
     padding: 10,
     alignItems: 'center',
-  },
-  clearButton: {
-    backgroundColor: 'grey',
-    borderRadius: 5,
-    marginRight: 10,
-    padding: 5,
   },
   optionContainer: {
     padding: 10,
     borderBottomColor: c.gray,
     borderBottomWidth: 1,
-  },
-  optionInnerContainer: {
-    flex: 1,
-    flexDirection: 'row',
-  },
-  box: {
-    width: 20,
-    height: 20,
-    marginRight: 10,
   },
 });

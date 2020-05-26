@@ -53,7 +53,6 @@ const CaseTotal = ({caseDummy, goDetail, country, dataReady, detailReady}) => {
     opacity: 0.3,
     x: 0,
     y: 10,
-    // style: {bottom: 20},
   };
 
   return (
@@ -74,19 +73,12 @@ const CaseTotal = ({caseDummy, goDetail, country, dataReady, detailReady}) => {
         {detailReady ? (
           <TouchableOpacity
             onPress={() => goDetail()}
-            style={{
-              flexDirection: 'row',
-              paddingBottom: 5,
-            }}>
+            style={s.rowBtn}>
             <Text style={s.text.detail}>Detail</Text>
             <Icon name={'chevron-right'} size={14} color={c.blue} />
           </TouchableOpacity>
         ) : (
-          <View
-            style={{
-              flexDirection: 'row',
-              paddingBottom: 5,
-            }}>
+          <View style={s.rowBtn}>
             <Text style={s.text.detailLoading}>Detail</Text>
             <ActivityIndicator size={10} color={c.grayText} />
           </View>
@@ -115,15 +107,17 @@ const s = {
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
+  rowBtn: {
+    flexDirection: 'row',
+    paddingBottom: 5,
+  },
   card: {
     backgroundColor: 'white',
     marginTop: 10,
-    // paddingHorizontal: 30,
     paddingVertical: 20,
     borderRadius: 25,
     justifyContent: 'space-evenly',
     alignItems: 'center',
-    // elevation: 8,
     flexDirection: 'row',
   },
   icon: {width: 35, height: 35, marginBottom: 10, alignSelf: 'center'},
@@ -162,12 +156,6 @@ const s = {
       fontFamily: f.GoogleSans_Reg,
       fontSize: 12,
     },
-    cOrange: {color: c.orange},
-    cGreen: {color: c.green},
-    cRed: {color: c.red},
-    cGrayText: {color: c.grayText},
-    cBlueDark: {color: c.blueDark},
-    cBlue: {color: c.blue},
   },
   space: value => {
     return {

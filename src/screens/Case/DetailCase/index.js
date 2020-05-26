@@ -94,23 +94,14 @@ class App extends Component {
               return (
                 <BoxShadow setting={shadowOpt} key={data.FID}>
                   <View style={s.card}>
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                      }}>
+                    <View style={s.rowData}>
                       <Icon
                         name="location-pin"
                         color={c.black}
                         size={18}
                         style={{paddingLeft: 10}}
                       />
-                      <Text
-                        style={{
-                          textAlign: 'left',
-                          fontFamily: f.GoogleSans_Bold,
-                          color: c.black,
-                          fontSize: 18,
-                        }}>
+                      <Text style={s.textData}>
                         {this.props.country === 'Indonesia'
                           ? data.Provinsi
                           : data.Negara}
@@ -164,8 +155,17 @@ const s = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
   },
+  rowData: {
+    flexDirection: 'row',
+  },
   text: {
     textAlign: 'left',
+  },
+  textData: {
+    textAlign: 'left',
+    fontFamily: f.GoogleSans_Bold,
+    color: c.black,
+    fontSize: 18,
   },
   space: value => {
     return {
