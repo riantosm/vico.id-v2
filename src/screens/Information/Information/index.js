@@ -22,16 +22,20 @@ const Information = ({navigation}) => {
         translucent={false}
       />
       <ScrollView showsVerticalScrollIndicator={false}>
-        <ImageBackground source={BgScreen} style={{minHeight:height}}>
+        <ImageBackground source={BgScreen} style={{minHeight: height}}>
           <Header status="information" />
           <View style={s.container}>
             <View style={s.space(width / 7)} />
             <Text style={s.text.title}>Apa Itu Virus Corona</Text>
             <View style={s.space(20)} />
-            <Card text="Mengenal" hotline={false} />
-            <Card text="Mencegah" hotline={false} />
-            <Card text="Mengobati" hotline={false} />
-            <Card text="Mengantisipasi" hotline={false} />
+            <Card text="Mengenal" hotline={false} navigation={navigation} />
+            <Card text="Mencegah" hotline={false} navigation={navigation} />
+            <Card text="Mengobati" hotline={false} navigation={navigation} />
+            <Card
+              text="Mengantisipasi"
+              hotline={false}
+              navigation={navigation}
+            />
           </View>
         </ImageBackground>
       </ScrollView>

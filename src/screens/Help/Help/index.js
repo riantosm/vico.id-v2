@@ -41,7 +41,7 @@ const Help = ({navigation}) => {
               <Text style={s.text.desc}>
                 Jika anda mengalami gejala-gejala{' '}
               </Text>
-              <TouchableOpacity onPress={() => toggleModal()}>
+              <TouchableOpacity onPress={() => navigation.navigate('ReadHelp', 'Gejala')}>
                 <Text style={[s.text.desc, {color: c.green}]}>
                   seperti ini.
                 </Text>
@@ -49,9 +49,17 @@ const Help = ({navigation}) => {
               <Text style={s.text.desc}>Silahkan hubungi kontak di bawah.</Text>
             </View>
             <View style={s.space(20)} />
-            <Card text="Hotline" hotline={true} />
-            <Card text="Konsultasi Dokter" hotline={false} />
-            <Card text="Rumah Sakit Terdekat" hotline={false} />
+            <Card text="Hotline" hotline={true} navigation={navigation} />
+            <Card
+              text="Konsultasi Dokter"
+              hotline={false}
+              navigation={navigation}
+            />
+            <Card
+              text="Rumah Sakit Terdekat"
+              hotline={false}
+              navigation={navigation}
+            />
           </View>
         </ImageBackground>
       </ScrollView>

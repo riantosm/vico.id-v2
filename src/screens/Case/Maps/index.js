@@ -33,7 +33,6 @@ const Maps = ({props}) => {
         backgroundColor={'#323967'}
         translucent={false}
       />
-
       <View style={s.header}>
         <TouchableOpacity onPress={() => props.navigation.goBack()}>
           <Icon
@@ -76,72 +75,69 @@ class ClassMaps extends Component {
       this.setState({
         isLoading: false,
       });
-    },1000);
+    }, 1000);
   }
 
   render() {
-    const {isLoading} = this.state;
-    return (
-      <>
-        {isLoading ? (
-          <ActivityIndicator />
-        ) : this.props.state === undefined || this.props.state.index === 0 ? (
-          <>
-            <MapView
-              ref={map => (this._map = map)}
-              provider={PROVIDER_GOOGLE}
-              style={s.map}
-              showsUserLocation
-              initialRegion={{
-                latitude: -4.411479,
-                longitude: 122.361987,
-                latitudeDelta: 26,
-                longitudeDelta: 26.51,}}>
-              {this.props.dataIndo.map((marker, index) => {
-                return (
-                  <Marker
-                    key={marker.FID}
-                    tracksViewChanges={false}
-                    // onPress={() => this.onMakerPressed(marker, index)}
-                    coordinate={{
-                      latitude: marker.Lat,
-                      longitude: marker.Long,
-                    }}
-                  />
-                );
-              })}
-            </MapView>
-          </>
-        ) : (
-          <>
-            <MapView
-              ref={map => (this._map = map)}
-              provider={PROVIDER_GOOGLE}
-              style={s.map}
-              showsUserLocation
-              initialRegion={{
-                latitude: -4.411479,
-                longitude: 122.361987,
-                latitudeDelta: 70,
-                longitudeDelta: 70.51,}}>
-              {this.props.dataDuni.map((marker, index) => {
-                return (
-                  <Marker
-                    key={marker.FID}
-                    tracksViewChanges={false}
-                    pinColor='blue'
-                    // onPress={() => this.onMakerPressed(marker, index)}
-                    coordinate={{
-                      latitude: marker.Lat,
-                      longitude: marker.Long,
-                    }}
-                  />
-                );
-              })}
-            </MapView>
-          </>
-        )}
-      </>
+    return this.state.isLoading ? (
+      <ActivityIndicator />
+    ) : (
+      <MapView
+        ref={map => (this._map = map)}
+        provider={PROVIDER_GOOGLE}
+        style={s.map}
+        showsUserLocation
+        initialRegion={{
+          latitude: -4.411479,
+          longitude: 122.361987,
+          latitudeDelta:
+            this.props.state === undefined || this.props.state.index === 0
+              ? 26
+              : 60,
+          longitudeDelta:
+            this.props.state === undefined || this.props.state.index === 0
+              ? 26
+              : 60,
+        }}>
+        {this.props.state === undefined || this.props.state.index === 0
+          ? this.props.dataIndo.map(marker => {
+              return (
+                <Marker
+                  key={marker.FID}
+                  tracksViewChanges={false}
+                  coordinate={{
+                    latitude: marker.Lat,
+                    longitude: marker.Long,
+                  }}>
+                  <Callout>
+                    <Text style={{fontWeight: 'bold'}}>{marker.Provinsi}</Text>
+                    <Text>Kasus Positif : {marker.Kasus_Posi}</Text>
+                    <Text>Kasus Sembuh : {marker.Kasus_Semb}</Text>
+                    <Text>Kasus Meninggal : {marker.Kasus_Meni}</Text>
+                  </Callout>
+                </Marker>
+              );
+            })
+          : this.props.dataDuni.map(marker => {
+              return (
+                <Marker
+                  key={marker.FID}
+                  tracksViewChanges={false}
+                  pinColor="blue"
+                  coordinate={{
+                    latitude: marker.Lat,
+                    longitude: marker.Long,
+                  }}>
+                  <Callout>
+                    <Text style={{fontWeight: 'bold'}}>{marker.Negara}</Text>
+                    <Text>Kasus Positif : {marker.Kasus_Posi}</Text>
+                    <Text>Kasus Sembuh : {marker.Kasus_Semb}</Text>
+                    <Text>Kasus Meninggal : {marker.Kasus_Meni}</Text>
+                  </Callout>
+                </Marker>
+              );
+            })}
+      </MapView>
     );
   }
 }

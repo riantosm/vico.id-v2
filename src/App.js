@@ -13,7 +13,7 @@ import {
   storageBucket,
 } from 'react-native-dotenv';
 import {BottomTab, BottomTabMaps} from './router';
-import {DetailCase, Maps, Splash} from './screens';
+import {DetailCase, ReadInfo, Splash, ReadHelp} from './screens';
 
 // Your web app's Firebase configuration
 var firebaseConfig = {
@@ -52,6 +52,12 @@ const Root = () => {
         <Stack.Screen name="Maps" component={BottomTabMaps} />
         <Stack.Screen name="DetailCase" component={DetailCase} />
         {/* }case */}
+        {/* information{ */}
+        <Stack.Screen name="ReadInfo" component={ReadInfo} />
+        {/* }information */}
+        {/* help{ */}
+        <Stack.Screen name="ReadHelp" component={ReadHelp} />
+        {/* }help */}
       </Stack.Navigator>
     </NavigationContainer>
   );

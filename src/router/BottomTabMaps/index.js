@@ -1,14 +1,13 @@
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import * as React from 'react';
 import {Image, StyleSheet, Text} from 'react-native';
-import {IconCase, IconInformation} from '../../assets';
+import {IconDuni, IconIndo} from '../../assets';
 import {Maps} from '../../screens';
 import {colors as c, fonts as f} from '../../styles';
 
 const Tab = createMaterialBottomTabNavigator();
 
-const BottomTabMaps = (props) => {
-  // console.log(props);
+const BottomTabMaps = props => {
   const ThisMaps = () => {
     return <Maps props={props} />;
   };
@@ -29,10 +28,10 @@ const BottomTabMaps = (props) => {
           tabBarColor: '#fff',
           tabBarIcon: ({color}) => (
             <Image
-              source={IconCase}
+              source={IconIndo}
               style={{
-                width: 20,
-                height: 20,
+                width: 50,
+                height: 25,
                 tintColor: color === 'gray' ? c.orange : color,
               }}
             />
@@ -47,10 +46,10 @@ const BottomTabMaps = (props) => {
           tabBarColor: '#fff',
           tabBarIcon: ({color}) => (
             <Image
-              source={IconInformation}
+              source={IconDuni}
               style={{
-                width: 20,
-                height: 20,
+                width: 50,
+                height: 25,
                 tintColor: color === 'gray' ? '#268aed' : color,
               }}
             />

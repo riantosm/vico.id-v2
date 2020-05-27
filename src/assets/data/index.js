@@ -191,8 +191,6 @@ const Mengantisipasi = () => {
 const Gejala = () => {
   return (
     <>
-      <Text style={s.text.title}>Bagaimana gejala Covid-19?</Text>
-      <View style={s.space(10)} />
       <Text style={s.text.desc}>
         Ciri-ciri virus corona hampir mirip dengan gejala flu, di antaranya:
         {'\n'}- Demam tinggi lebih dari 38 derajat Celsius
@@ -217,12 +215,12 @@ const s = {
     title: {
       fontSize: 20,
       fontFamily: f.GoogleSans_Bold,
-      color: c.white,
+      color: c.black,
     },
     desc: {
       fontSize: 14,
       fontFamily: f.GoogleSans_Bold,
-      color: c.gray,
+      color: c.grayText,
       textAlign: 'justify',
     },
   },

@@ -15,6 +15,8 @@ import maps from './img/maps.png';
 import IconHelp from './img/help.png';
 import IconCase from './img/case.png';
 import IconInformation from './img/information.png';
+import IconDuni from './img/duniIcon.png';
+import IconIndo from './img/indoIcon.png';
 
 // icon components
 import location from './img/location.png';
@@ -42,6 +44,8 @@ export {
   IconHelp,
   IconCase,
   IconInformation,
+  IconDuni,
+  IconIndo,
   location,
   down,
   kasus_posi,

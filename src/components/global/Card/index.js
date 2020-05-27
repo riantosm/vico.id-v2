@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 import {BoxShadow} from 'react-native-shadow';
 import Icon from 'react-native-vector-icons/Entypo';
-import {ModalComp} from '..';
 import {
   help_chat,
   help_phone,
@@ -23,7 +22,7 @@ import {colors as c, fonts as f} from '../../../styles';
 
 const {width, height} = Dimensions.get('window');
 
-const Card = ({text, hotline}) => {
+const Card = ({text, hotline, navigation}) => {
   const img =
     text === 'Mengenal'
       ? information_virus
@@ -65,7 +64,14 @@ const Card = ({text, hotline}) => {
       ? Linking.openURL(
           'whatsapp://send?text=' + '' + '&phone=62' + '81212123119',
         )
-      : toggleModal();
+      : navigation.navigate(
+          text === 'Gejala' ||
+            text === 'Konsultasi Dokter' ||
+            text === 'Rumah Sakit Terdekat'
+            ? 'ReadHelp'
+            : 'ReadInfo',
+          text,
+        );
   };
 
   return (
@@ -84,19 +90,12 @@ const Card = ({text, hotline}) => {
             </View>
             {hotline && (
               <View style={s.bubble}>
-                <Text style={s.text.bubble}>Panggil</Text>
+                <Text style={s.text.bubble}>Hubungi</Text>
               </View>
             )}
           </View>
         </TouchableOpacity>
       </BoxShadow>
-      <ModalComp
-        show={text}
-        isModalVisible={isModalVisible}
-        setModalVisible={() => setModalVisible(false)}
-        toggleModal={() => toggleModal()}
-        toggleModalBack={() => toggleModalBack()}
-      />
       <View style={s.space(25)} />
     </>
   );

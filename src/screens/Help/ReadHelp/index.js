@@ -1,4 +1,4 @@
-import React, {Component, useEffect, useState} from 'react';
+import React, {Component} from 'react';
 import {
   Dimensions,
   ScrollView,
@@ -8,26 +8,14 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {BoxShadow} from 'react-native-shadow';
 import SkeletonContent from 'react-native-skeleton-content-nonexpo';
 import Icon from 'react-native-vector-icons/Entypo';
-import {CaseComp} from '../../../components';
+import {Data} from '../../../assets';
 import {colors as c, fonts as f} from '../../../styles';
 
 const {width, height} = Dimensions.get('window');
 
-const shadowOpt = {
-  width: width - 40,
-  height: 145,
-  color: '#ccc',
-  border: 10,
-  radius: 10,
-  opacity: 0.3,
-  x: 0,
-  y: 0,
-  style: {marginBottom: 20},
-};
-const DetailCase = ({route, navigation, data}) => {
+const ReadHelp = ({navigation, route}) => {
   return (
     <>
       <StatusBar
@@ -35,7 +23,6 @@ const DetailCase = ({route, navigation, data}) => {
         backgroundColor={'rgba(0,0,0,0.7)'}
         translucent={false}
       />
-
       <View style={s.header}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Icon
@@ -45,14 +32,14 @@ const DetailCase = ({route, navigation, data}) => {
             style={{padding: 20}}
           />
         </TouchableOpacity>
-        <Text style={s.headerTitle}>Detail kasus di {route.params[0]}</Text>
+        <Text style={s.headerTitle}>Bantuan</Text>
       </View>
-      <App data={route.params[1]} country={route.params[0]} />
+      <ClassRead text={route.params} />
     </>
   );
 };
 
-class App extends Component {
+class ClassRead extends Component {
   constructor(props) {
     super(props);
     this.state = {isLoading: true};
@@ -75,41 +62,30 @@ class App extends Component {
         containerStyle={{flex: 1, width}}
         isLoading={isLoading}
         layout={[
-          {key: '1', width: width - 40, height: 145, margin: 20},
+          {key: '1', width: width - 80, height: 35, margin: 20},
           {key: '2', width: width - 40, height: 145, margin: 20},
-          {key: '3', width: width - 40, height: 145, margin: 20},
-          {key: '4', width: width - 40, height: 145, margin: 20},
+          {key: '4', width: width - 100, height: 25, margin: 20},
         ]}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={s.space(20)} />
           <View style={s.container}>
-            {this.props.data.map((data, index) => {
-              return (
-                <BoxShadow setting={shadowOpt} key={data.FID}>
-                  <View style={s.card}>
-                    <View style={s.rowData}>
-                      <Icon
-                        name="location-pin"
-                        color={c.black}
-                        size={18}
-                        style={{paddingLeft: 10}}
-                      />
-                      <Text style={s.textData}>
-                        {this.props.country === 'Indonesia'
-                          ? data.Provinsi
-                          : data.Negara}
-                      </Text>
-                    </View>
-                    <View style={s.space(10)} />
-                    <View style={s.row}>
-                      <CaseComp status={'posi'} caseDummy={data.Kasus_Posi} />
-                      <CaseComp status={'semb'} caseDummy={data.Kasus_Semb} />
-                      <CaseComp status={'meni'} caseDummy={data.Kasus_Meni} />
-                    </View>
-                  </View>
-                </BoxShadow>
-              );
-            })}
+            <Text style={s.text_title}>
+              {this.props.text === 'Gejala' ? (
+                <>{this.props.text} virus corona.</>
+              ) : (
+                <>Segera hadir.</>
+              )}
+            </Text>
+            <View style={s.space(20)} />
+            {this.props.text === 'Gejala' ? (
+              <Data.Gejala />
+            ) : (
+              <Text style={s.textData}>
+                Halaman ini belum tersedia. Aplikasi ini masih dalam
+                pengembangan.
+              </Text>
+            )}
+            <View style={s.space(40)} />
           </View>
           <View style={s.space(10)} />
         </ScrollView>
@@ -120,7 +96,7 @@ class App extends Component {
 
 const s = StyleSheet.create({
   header: {
-    backgroundColor: c.blueDark,
+    backgroundColor: '#4c8f3d',
     flexDirection: 'row',
     padding: 0,
     elevation: 5,
@@ -154,11 +130,16 @@ const s = StyleSheet.create({
   text: {
     textAlign: 'left',
   },
+  text_title: {
+    fontSize: 30,
+    fontFamily: f.GoogleSans_Bold,
+    color: c.black,
+  },
   textData: {
     textAlign: 'left',
     fontFamily: f.GoogleSans_Bold,
-    color: c.black,
-    fontSize: 18,
+    color: c.grayText,
+    fontSize: 14,
   },
   space: value => {
     return {
@@ -167,4 +148,4 @@ const s = StyleSheet.create({
   },
 });
 
-export default DetailCase;
+export default ReadHelp;

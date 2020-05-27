@@ -23,11 +23,14 @@ const ModalComp = ({show, isModalVisible, toggleModal, toggleModalBack}) => {
         <View style={s.space(50)} />
         <View style={s.container}>
           <Text style={s.text.title}>
-            {show}{' '}
-            {(show === 'Mengenal' && <>virus corona.</>) ||
-              (show === 'Mencegah' && <>virus corona.</>) ||
-              (show === 'Mengobati' && <>virus corona.</>) ||
-              (show === 'Mengantisipasi' && <>virus corona.</>)}
+            {show === 'Mengenal' ||
+            show === 'Mencegah' ||
+            show === 'Mengobati' ||
+            show === 'Mengantisipasi' ? (
+              <>{show} virus corona.</>
+            ) : (
+              <>Segera hadir.</>
+            )}
           </Text>
           <View style={s.space(20)} />
           {(show === 'Mengenal' && <Data.Mengenal />) ||
