@@ -7,9 +7,10 @@ import {colors as c, fonts as f} from '../../styles';
 
 const Tab = createMaterialBottomTabNavigator();
 
-const BottomTabMaps = ({route}) => {
+const BottomTabMaps = (props) => {
+  // console.log(props);
   const ThisMaps = () => {
-    return <Maps route={route} />;
+    return <Maps props={props} />;
   };
   return (
     <Tab.Navigator
