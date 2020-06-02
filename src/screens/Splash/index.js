@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   ActivityIndicator,
   ImageBackground,
@@ -6,11 +6,27 @@ import {
   Text,
   View,
 } from 'react-native';
+import {useDispatch} from 'react-redux';
 import {bg_loading} from '../../assets';
-import {colors as c, fonts as f} from '../../styles';
 import {LogoSplash} from '../../components';
+import {
+  watchDetailDuni,
+  watchDetailIndo,
+  watchTotalDuni,
+  watchTotalIndo,
+} from '../../redux/actions';
+import {colors as c, fonts as f} from '../../styles';
 
-const Splash = ({navigation}) => {
+const Splash = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(watchTotalIndo());
+    dispatch(watchTotalDuni());
+    dispatch(watchDetailIndo());
+    dispatch(watchDetailDuni());
+  });
+
   return (
     <>
       <StatusBar barStyle="light-content" backgroundColor={c.blueDark} />

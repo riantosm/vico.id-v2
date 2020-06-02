@@ -1,49 +1,22 @@
-import React from 'react';
-import {
-  ActivityIndicator,
-  Dimensions,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {Dimensions, Text, TouchableOpacity, View} from 'react-native';
 import {BoxShadow} from 'react-native-shadow';
 import Icon from 'react-native-vector-icons/Entypo';
+import {useSelector} from 'react-redux';
 import {CaseComp} from '../../';
 import {colors as c, fonts as f} from '../../../styles';
 
-var day = new Date().getDay(); //To get the Current Date
-var date = new Date().getDate(); //To get the Current Date
-var month = new Date().getMonth(); //To get the Current Month
-var year = new Date().getFullYear(); //To get the Current Year
-
-const monthArray = [
-  'Januari',
-  'Februari',
-  'Maret',
-  'April',
-  'Mei',
-  'Juni',
-  'Juli',
-  'Agustus',
-  'September',
-  'Oktober',
-  'November',
-  'Desember',
-];
-
-const dayArray = [
-  'Minggu',
-  'Senin',
-  'Selasa',
-  'Rabu',
-  'Kamis',
-  'Jumat',
-  'Sabtu',
-];
-
 const {width, height} = Dimensions.get('window');
 
-const CaseTotal = ({caseDummy, goDetail, country, dataReady, detailReady}) => {
+const CaseTotal = ({goDetail}) => {
+  const {country, totalIndo, totalDuni, currentDate} = useSelector(
+    state => state,
+  );
+  const [caseTotal, setCaseTotal] = useState(totalIndo);
+  useEffect(() => {
+    setCaseTotal(country === 'Indonesia' ? totalIndo : totalDuni);
+  });
+
   const shadowOpt = {
     width: width - 40,
     height: 120,
@@ -61,34 +34,17 @@ const CaseTotal = ({caseDummy, goDetail, country, dataReady, detailReady}) => {
         Total Kasus di <Text style={s.text.cBlue}>{country}</Text>
       </Text>
       <View style={s.row}>
-        <Text style={s.text.desc}>
-          {dataReady ? (
-            <>
-              {dayArray[day]}, {date} {monthArray[month]} {year}
-            </>
-          ) : (
-            <>Memuat ...</>
-          )}
-        </Text>
-        {detailReady ? (
-          <TouchableOpacity
-            onPress={() => goDetail()}
-            style={s.rowBtn}>
-            <Text style={s.text.detail}>Detail</Text>
-            <Icon name={'chevron-right'} size={14} color={c.blue} />
-          </TouchableOpacity>
-        ) : (
-          <View style={s.rowBtn}>
-            <Text style={s.text.detailLoading}>Detail</Text>
-            <ActivityIndicator size={10} color={c.grayText} />
-          </View>
-        )}
+        <Text style={s.text.desc}>{currentDate}</Text>
+        <TouchableOpacity onPress={() => goDetail()} style={s.rowBtn}>
+          <Text style={s.text.detail}>Detail</Text>
+          <Icon name={'chevron-right'} size={14} color={c.blue} />
+        </TouchableOpacity>
       </View>
       <BoxShadow setting={shadowOpt}>
         <View style={s.card}>
-          <CaseComp status={'posi'} caseDummy={caseDummy[1]} />
-          <CaseComp status={'semb'} caseDummy={caseDummy[2]} />
-          <CaseComp status={'meni'} caseDummy={caseDummy[0]} />
+          <CaseComp status={'posi'} caseDummy={caseTotal.Posi} />
+          <CaseComp status={'semb'} caseDummy={caseTotal.Semb} />
+          <CaseComp status={'meni'} caseDummy={caseTotal.Meni} />
         </View>
       </BoxShadow>
     </View>

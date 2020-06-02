@@ -1,13 +1,14 @@
-// Library
 import React, {Component} from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {CustomPicker} from 'react-native-custom-picker';
+import {connect} from 'react-redux';
 import {down, location} from '../../../assets';
+import {setCountry} from '../../../redux/actions';
 import {colors as c, fonts as f} from '../../../styles';
 
 let country = 'Indonesia';
 
-export default class CountryPicker extends Component {
+class CountryPicker extends Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -37,8 +38,12 @@ export default class CountryPicker extends Component {
           modalStyle={styles.modalStyle}
           footerTemplate={this.renderFooter}
           onValueChange={value => {
-            this.props.onPress(value.label);
-            this.exportState(value.label);
+            this.props.setCountry(
+              value.label !== 'Indonesia' ? 'Dunia' : 'Indonesia',
+            );
+            this.exportState(
+              value.label !== 'Indonesia' ? 'Dunia' : 'Indonesia',
+            );
           }}
         />
       </View>
@@ -110,6 +115,23 @@ export default class CountryPicker extends Component {
     );
   }
 }
+
+const mapStateToProps = () => {
+  return {};
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setCountry: country => {
+      dispatch(setCountry(country));
+    },
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(CountryPicker);
 
 const styles = StyleSheet.create({
   containerBig: {flex: 1, flexDirection: 'column', justifyContent: 'center'},

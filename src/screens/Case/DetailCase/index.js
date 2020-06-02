@@ -1,6 +1,7 @@
-import React, {Component, useEffect, useState} from 'react';
+import React, {Component} from 'react';
 import {
   Dimensions,
+  FlatList,
   ScrollView,
   StatusBar,
   StyleSheet,
@@ -8,51 +9,15 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {BoxShadow} from 'react-native-shadow';
 import SkeletonContent from 'react-native-skeleton-content-nonexpo';
 import Icon from 'react-native-vector-icons/Entypo';
+import {connect} from 'react-redux';
 import {CaseComp} from '../../../components';
 import {colors as c, fonts as f} from '../../../styles';
 
 const {width, height} = Dimensions.get('window');
 
-const shadowOpt = {
-  width: width - 40,
-  height: 145,
-  color: '#ccc',
-  border: 10,
-  radius: 10,
-  opacity: 0.3,
-  x: 0,
-  y: 0,
-  style: {marginBottom: 20},
-};
-const DetailCase = ({route, navigation, data}) => {
-  return (
-    <>
-      <StatusBar
-        barStyle="light-content"
-        backgroundColor={'rgba(0,0,0,0.7)'}
-        translucent={false}
-      />
-
-      <View style={s.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Icon
-            name="chevron-left"
-            color="white"
-            size={18}
-            style={{padding: 20}}
-          />
-        </TouchableOpacity>
-        <Text style={s.headerTitle}>Detail kasus di {route.params[0]}</Text>
-      </View>
-      <App data={route.params[1]} country={route.params[0]} />
-    </>
-  );
-};
-
-class App extends Component {
+class DetailCase extends Component {
   constructor(props) {
     super(props);
     this.state = {isLoading: true};
@@ -68,24 +33,44 @@ class App extends Component {
 
   render() {
     const {isLoading} = this.state;
+    const {detailIndo, detailDuni, navigation, country} = this.props;
+    const data = country === 'Indonesia' ? detailIndo : detailDuni;
     return (
-      <SkeletonContent
-        boneColor="#dddfee"
-        highlightColor="#eeeff7"
-        containerStyle={{flex: 1, width}}
-        isLoading={isLoading}
-        layout={[
-          {key: '1', width: width - 40, height: 145, margin: 20},
-          {key: '2', width: width - 40, height: 145, margin: 20},
-          {key: '3', width: width - 40, height: 145, margin: 20},
-          {key: '4', width: width - 40, height: 145, margin: 20},
-        ]}>
-        <ScrollView showsVerticalScrollIndicator={false}>
-          <View style={s.space(20)} />
-          <View style={s.container}>
-            {this.props.data.map((data, index) => {
-              return (
-                <BoxShadow setting={shadowOpt} key={data.FID}>
+      <>
+        <StatusBar
+          barStyle="light-content"
+          backgroundColor={'rgba(0,0,0,0.7)'}
+          translucent={false}
+        />
+
+        <View style={s.header}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <Icon
+              name="chevron-left"
+              color="white"
+              size={18}
+              style={{padding: 20}}
+            />
+          </TouchableOpacity>
+          <Text style={s.headerTitle}>Detail kasus di {country}</Text>
+        </View>
+        <SkeletonContent
+          boneColor="#dddfee"
+          highlightColor="#eeeff7"
+          containerStyle={{flex: 1, width}}
+          isLoading={isLoading}
+          layout={[
+            {key: '1', width: width - 40, height: 145, margin: 20},
+            {key: '2', width: width - 40, height: 145, margin: 20},
+            {key: '3', width: width - 40, height: 145, margin: 20},
+            {key: '4', width: width - 40, height: 145, margin: 20},
+          ]}>
+          <ScrollView showsVerticalScrollIndicator={true}>
+            <View style={s.space(20)} />
+            <View style={s.container}>
+              <FlatList
+                data={Object.keys(data)}
+                renderItem={({item}) => (
                   <View style={s.card}>
                     <View style={s.rowData}>
                       <Icon
@@ -95,28 +80,55 @@ class App extends Component {
                         style={{paddingLeft: 10}}
                       />
                       <Text style={s.textData}>
-                        {this.props.country === 'Indonesia'
-                          ? data.Provinsi
-                          : data.Negara}
+                        {country === 'Indonesia'
+                          ? data[item].Provinsi
+                          : data[item].Negara}
                       </Text>
                     </View>
                     <View style={s.space(10)} />
                     <View style={s.row}>
-                      <CaseComp status={'posi'} caseDummy={data.Kasus_Posi} />
-                      <CaseComp status={'semb'} caseDummy={data.Kasus_Semb} />
-                      <CaseComp status={'meni'} caseDummy={data.Kasus_Meni} />
+                      <CaseComp
+                        status={'posi'}
+                        caseDummy={data[item].Kasus_Posi}
+                      />
+                      <CaseComp
+                        status={'semb'}
+                        caseDummy={data[item].Kasus_Semb}
+                      />
+                      <CaseComp
+                        status={'meni'}
+                        caseDummy={data[item].Kasus_Meni}
+                      />
                     </View>
                   </View>
-                </BoxShadow>
-              );
-            })}
-          </View>
-          <View style={s.space(10)} />
-        </ScrollView>
-      </SkeletonContent>
+                )}
+                keyExtractor={index => index.toString()}
+              />
+            </View>
+            <View style={s.space(20)} />
+          </ScrollView>
+        </SkeletonContent>
+      </>
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    detailIndo: state.detailIndo,
+    detailDuni: state.detailDuni,
+    country: state.country,
+  };
+};
+
+const mapDispatchToProps = () => {
+  return {};
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(DetailCase);
 
 const s = StyleSheet.create({
   header: {
@@ -133,7 +145,6 @@ const s = StyleSheet.create({
   },
   container: {
     flex: 1,
-    paddingHorizontal: 20,
   },
   card: {
     height: 145,
@@ -142,6 +153,7 @@ const s = StyleSheet.create({
     borderRadius: 10,
     padding: 10,
     justifyContent: 'center',
+    marginVertical: 10,
   },
   row: {
     justifyContent: 'space-evenly',
@@ -166,5 +178,3 @@ const s = StyleSheet.create({
     };
   },
 });
-
-export default DetailCase;

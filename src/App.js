@@ -1,33 +1,11 @@
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import firebase from 'firebase';
 import React, {useEffect, useState} from 'react';
-import {
-  apiKey,
-  appId,
-  authDomain,
-  databaseURL,
-  measurementId,
-  messagingSenderId,
-  projectId,
-  storageBucket,
-} from 'react-native-dotenv';
+import {Provider} from 'react-redux';
+import './config/firebase';
+import {store} from './redux/store';
 import {BottomTab, BottomTabMaps} from './router';
-import {DetailCase, ReadInfo, Splash, ReadHelp} from './screens';
-
-// Your web app's Firebase configuration
-var firebaseConfig = {
-  apiKey,
-  authDomain,
-  databaseURL,
-  projectId,
-  storageBucket,
-  messagingSenderId,
-  appId,
-  measurementId,
-};
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+import {DetailCase, ReadHelp, ReadInfo, Splash} from './screens';
 
 const Stack = createStackNavigator();
 
@@ -40,7 +18,11 @@ const App = () => {
     }, 2000);
   });
 
-  return isLoading ? <Splash /> : <Root />;
+  return (
+    <>
+      <Provider store={store}>{isLoading ? <Splash /> : <Root />}</Provider>
+    </>
+  );
 };
 
 const Root = () => {
