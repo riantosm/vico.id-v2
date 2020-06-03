@@ -5,7 +5,7 @@ import {Provider} from 'react-redux';
 import './config/firebase';
 import {store} from './redux/store';
 import {BottomTab, BottomTabMaps} from './router';
-import {DetailCase, ReadHelp, ReadInfo, Splash} from './screens';
+import {DetailCase, ReadInfos, Splash} from './screens';
 
 const Stack = createStackNavigator();
 
@@ -34,12 +34,9 @@ const Root = () => {
         <Stack.Screen name="Maps" component={BottomTabMaps} />
         <Stack.Screen name="DetailCase" component={DetailCase} />
         {/* }case */}
-        {/* information{ */}
-        <Stack.Screen name="ReadInfo" component={ReadInfo} />
-        {/* }information */}
-        {/* help{ */}
-        <Stack.Screen name="ReadHelp" component={ReadHelp} />
-        {/* }help */}
+        {/* read{ */}
+        <Stack.Screen name="ReadInfos" component={ReadInfos} />
+        {/* }read */}
       </Stack.Navigator>
     </NavigationContainer>
   );

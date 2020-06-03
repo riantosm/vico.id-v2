@@ -30,8 +30,8 @@ const BottomTabMaps = props => {
             <Image
               source={IconIndo}
               style={{
-                width: 50,
-                height: 25,
+                width: 20,
+                height: 20,
                 tintColor: color === 'gray' ? c.orange : color,
               }}
             />
@@ -48,8 +48,8 @@ const BottomTabMaps = props => {
             <Image
               source={IconDuni}
               style={{
-                width: 50,
-                height: 25,
+                width: 20,
+                height: 20,
                 tintColor: color === 'gray' ? '#268aed' : color,
               }}
             />

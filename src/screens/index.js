@@ -1,6 +1,7 @@
 import Splash from './Splash';
+import ReadInfos from './ReadInfos';
+import Help from './Help';
+import Information from './Information';
 
 export * from './Case';
-export * from './Information';
-export * from './Help';
-export {Splash};
+export {Splash, Help, Information, ReadInfos};

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {
   Dimensions,
   Image,
@@ -22,7 +22,7 @@ import {colors as c, fonts as f} from '../../../styles';
 
 const {width, height} = Dimensions.get('window');
 
-const Card = ({text, hotline, navigation}) => {
+const Card = ({text, hotline, navigation, page}) => {
   const img =
     text === 'Mengenal'
       ? information_virus
@@ -50,28 +50,12 @@ const Card = ({text, hotline, navigation}) => {
     // style: {bottom: 20},
   };
 
-  const [isModalVisible, setModalVisible] = useState(false);
-
-  const toggleModal = () => {
-    setModalVisible(!isModalVisible);
-  };
-  const toggleModalBack = () => {
-    setModalVisible(false);
-  };
-
   const clicked = () => {
     text === 'Hotline'
       ? Linking.openURL(
           'whatsapp://send?text=' + '' + '&phone=62' + '81212123119',
         )
-      : navigation.navigate(
-          text === 'Gejala' ||
-            text === 'Konsultasi Dokter' ||
-            text === 'Rumah Sakit Terdekat'
-            ? 'ReadHelp'
-            : 'ReadInfo',
-          text,
-        );
+      : navigation.navigate('ReadInfos', [text, page]);
   };
 
   return (
