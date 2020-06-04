@@ -40,7 +40,7 @@ const Splash = () => {
             size="small"
             style={{marginTop: 20}}
           />
-          <Text style={s.version}>v2.0</Text>
+          <Text style={s.version}>v2.1</Text>
         </View>
       </ImageBackground>
     </>
